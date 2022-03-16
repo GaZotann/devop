@@ -1,0 +1,15 @@
+version: '2.3.3'
+services:
+    server:
+        build: /home/ubuntu/devop2/
+        volumes:
+            - .:/home/ubuntu/devop2/app
+        ports:
+            - "8081:8081"   
+    docker-container-nodejs:
+        build: /home/ubuntu/devop/
+        volumes:
+            - .:/home/ubuntu/devop/app
+        ports:
+            - "8080:8080"
+         

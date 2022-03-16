@@ -1,0 +1,28 @@
+---
+- hosts: docker 
+  tasks:
+  - name: CD
+    file:
+      path: cd /
+      state: directory 
+ 
+  - name: get key docker
+    ansible.builtin.apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+      keyring: /usr/share/keyrings/docker-archive-keyring.gpg
+
+  - name: to add nightly or test repository
+    ansible.builtin.apt_repository:
+      repo: deb [arch=arm64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable nightly
+      state: present
+      filename: docker
+    
+  - name: apt docker  
+    apt: 
+      update_cache: yes
+      pkg:
+      - docker-ce 
+      - docker-ce-cli
+      - containerd.io
+      state: latest
